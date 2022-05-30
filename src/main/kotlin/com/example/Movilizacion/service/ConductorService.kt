@@ -24,6 +24,10 @@ class ConductorService {
         return conductorRepository.findByIdconductor(idconductor)
     }
 
+    fun getByAge(age:Long?):List<ConductorModel>?{
+        return conductorRepository.getListaConductores(age)
+    }
+
     fun save (conductorModel: ConductorModel):ConductorModel{
         try{
            conductorModel.nombre?.takeIf { it.trim().isNotEmpty() }
@@ -111,11 +115,10 @@ class ConductorService {
 
     fun delete (idconductor:Long): Boolean{
             try{
-                val response = conductorRepository.findByIdconductor(idconductor)
+                conductorRepository.findByIdconductor(idconductor)
                     ?:throw Exception ("El id ${idconductor} no existe")
-                response.apply {
-                    conductorRepository.deleteById(idconductor)
-                }
+                conductorRepository.deleteById(idconductor)
+
                 return true
             }
             catch (ex:Exception){

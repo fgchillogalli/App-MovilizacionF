@@ -20,10 +20,10 @@ CREATE TABLE IF NOT EXISTS usuarios (
 
 CREATE TABLE IF NOT EXISTS vehiculo (
     idvehiculo SERIAL,
-    idconductor SERIAL,
+    conductor_id INT NOT NULL UNIQUE,
     placa VARCHAR(8) NOT NULL,
     PRIMARY KEY (idvehiculo),
-    FOREIGN KEY (idconductor) REFERENCES conductor (idconductor)
+    FOREIGN KEY (conductor_id) REFERENCES conductor (idconductor)
 );
 
 

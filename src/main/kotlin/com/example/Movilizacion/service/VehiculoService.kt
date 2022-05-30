@@ -26,7 +26,10 @@ class VehiculoService {
             vehiculoModel.placa?.takeIf { it.trim().isNotEmpty() }
                 ?:throw Exception("La placa no puede estar vacia")
 
-            conductorRepository.findByIdconductor(vehiculoModel.idconductor)
+            vehiculoModel.marca?.takeIf { it.trim().isNotEmpty() }
+                ?:throw Exception("La marca no puede esatr vacia")
+
+            conductorRepository.findByIdconductor(vehiculoModel.conductorId)
                 ?:throw Exception ("Id de conductor no encontrada")
         }
         catch (ex:Exception){
@@ -42,10 +45,13 @@ class VehiculoService {
             vehiculoModel.placa?.takeIf { it.trim().isNotEmpty() }
                 ?:throw Exception("La Placa del vehiculo no puede estar vacia")
 
+            vehiculoModel.marca?.takeIf { it.trim().isNotEmpty() }
+                ?:throw Exception("La marca no puede estar vacia")
+
             vehiculoRepository.findByIdvehiculo(vehiculoModel.idvehiculo)
                 ?:throw Exception ("el id ${vehiculoModel.idvehiculo} no existe")
 
-            conductorRepository.findByIdconductor(vehiculoModel.idconductor)
+            conductorRepository.findByIdconductor(vehiculoModel.conductorId)
                 ?:throw Exception ("Id de Conductor no encontrada")
         }
 
@@ -61,6 +67,9 @@ class VehiculoService {
         try{
             vehiculoModel.placa?.takeIf { it.trim().isNotEmpty() }
                 ?:throw Exception("La placa del vehiculo no puede estar vacia")
+
+            vehiculoModel.marca?.takeIf { it.trim().isNotEmpty() }
+                ?:throw Exception("La marca no puede estar vacia")
 
             val response = vehiculoRepository.findByIdvehiculo(vehiculoModel.idvehiculo)
                 ?:throw Exception ("El id ${vehiculoModel.idvehiculo} no existe")
@@ -78,11 +87,10 @@ class VehiculoService {
 
     fun delete (idvehiculo:Long): Boolean{
         try{
-            val response = vehiculoRepository.findByIdvehiculo(idvehiculo)
+            vehiculoRepository.findByIdvehiculo(idvehiculo)
                 ?:throw Exception ("El id ${idvehiculo} no existe")
-            response.apply {
-                vehiculoRepository.deleteById(idvehiculo)
-            }
+            vehiculoRepository.deleteById(idvehiculo)
+
             return true
         }
         catch (ex:Exception){

@@ -22,6 +22,11 @@ class ConductorController {
         return conductorService.getByid(idconductor)
     }
 
+    @GetMapping("/age/{age}")
+    fun listByAge(@PathVariable ("age") age:Long?):List<ConductorModel>?{
+        return conductorService.getByAge(age)
+    }
+
 
     @PostMapping
     fun save(@RequestBody conductorModel: ConductorModel):ConductorModel{

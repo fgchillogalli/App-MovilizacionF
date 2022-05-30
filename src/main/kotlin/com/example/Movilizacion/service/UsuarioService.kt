@@ -20,6 +20,10 @@ class UsuarioService {
         return usuarioRepository.findByIdusuario(idusuario)
     }
 
+    fun getGender(gender:String?):List<UsarioModel>?{
+        return usuarioRepository.israelSanto(gender)
+    }
+
     fun save (usuarioModel: UsarioModel):UsarioModel{
         try {
             usuarioModel.nombre?.takeIf { it.trim().isNotEmpty() }
@@ -113,11 +117,10 @@ class UsuarioService {
 
     fun delete (idusuario:Long): Boolean{
         try{
-            val response = usuarioRepository.findByIdusuario(idusuario)
+            usuarioRepository.findByIdusuario(idusuario)
                 ?:throw Exception ("El id ${idusuario} no existe")
-            response.apply {
-                usuarioRepository.deleteById(idusuario)
-            }
+            usuarioRepository.deleteById(idusuario)
+
             return true
         }
         catch (ex:Exception){

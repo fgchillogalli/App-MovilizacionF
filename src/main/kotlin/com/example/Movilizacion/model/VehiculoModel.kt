@@ -12,8 +12,10 @@ import javax.persistence.Table
 class VehiculoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(updatable = false )
+    @Column(updatable = false)
     var idvehiculo: Long? = null
-    var idconductor: Long? = null
+    @Column(name = "conductor_id")
+    var conductorId: Long? = null
     var placa: String? = null
+    var marca: String? = null
 }

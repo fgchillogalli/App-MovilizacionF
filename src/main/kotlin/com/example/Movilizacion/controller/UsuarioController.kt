@@ -30,6 +30,11 @@ class UsuarioController {
         return usuarioService.getByid(idusuario)
     }
 
+    @GetMapping("/gender/{gender}")
+    fun getGender(@PathVariable("gender") gender:String?):List<UsarioModel>?{
+        return usuarioService.getGender(gender)
+    }
+
     @PostMapping
     fun save(@RequestBody usarioModel: UsarioModel):UsarioModel{
         return usuarioService.save(usarioModel)
