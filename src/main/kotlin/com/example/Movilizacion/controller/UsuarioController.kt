@@ -1,7 +1,6 @@
 package com.example.Movilizacion.controller
 
-import com.example.Movilizacion.model.UsarioModel
-import com.example.Movilizacion.model.VehiculoModel
+import com.example.Movilizacion.model.UsuarioModel
 import com.example.Movilizacion.service.UsuarioService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -21,33 +20,33 @@ class UsuarioController {
     lateinit var usuarioService: UsuarioService
 
     @GetMapping
-    fun list():List<UsarioModel>{
+    fun list():List<UsuarioModel>{
         return usuarioService.list()
     }
 
     @GetMapping("/{idusuario}")
-    fun getByid (@PathVariable ("idusuario")  idusuario: Long):UsarioModel?{
+    fun getByid (@PathVariable ("idusuario")  idusuario: Long):UsuarioModel?{
         return usuarioService.getByid(idusuario)
     }
 
     @GetMapping("/gender/{gender}")
-    fun getGender(@PathVariable("gender") gender:String?):List<UsarioModel>?{
+    fun getGender(@PathVariable("gender") gender:String?):List<UsuarioModel>?{
         return usuarioService.getGender(gender)
     }
 
     @PostMapping
-    fun save(@RequestBody usarioModel: UsarioModel):UsarioModel{
-        return usuarioService.save(usarioModel)
+    fun save(@RequestBody usuarioModel: UsuarioModel):UsuarioModel{
+        return usuarioService.save(usuarioModel)
     }
 
     @PutMapping
-    fun update (@RequestBody usarioModel: UsarioModel):UsarioModel{
-        return usuarioService.update(usarioModel)
+    fun update (@RequestBody usuarioModel: UsuarioModel):UsuarioModel{
+        return usuarioService.update(usuarioModel)
     }
 
     @PatchMapping
-    fun updateUno(@RequestBody usarioModel: UsarioModel):UsarioModel{
-        return usuarioService.updateUno(usarioModel)
+    fun updateUno(@RequestBody usuarioModel: UsuarioModel):UsuarioModel{
+        return usuarioService.updateUno(usuarioModel)
     }
 
     @DeleteMapping("/delete/{idusuario}")

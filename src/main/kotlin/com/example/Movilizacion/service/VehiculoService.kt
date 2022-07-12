@@ -1,12 +1,13 @@
 package com.example.Movilizacion.service
 
-import com.example.Movilizacion.controller.vehiculoController
+import com.example.Movilizacion.DTO.NewName
 import com.example.Movilizacion.model.VehiculoModel
 import com.example.Movilizacion.repository.ConductorRepository
 import com.example.Movilizacion.repository.VehiculoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.server.ResponseStatusException
 
 
@@ -83,6 +84,12 @@ class VehiculoService {
                 HttpStatus.NOT_FOUND, ex.message, ex
             )
         }
+    }
+
+    @Transactional
+    fun updateMarc (newName: NewName): String?{
+        val  rowsUpdate = vehiculoRepository.setOtherMarc(newName.nombre, newName.nuevoNombre)
+        return "${ rowsUpdate}  rowsUpdate"
     }
 
     fun delete (idvehiculo:Long): Boolean{

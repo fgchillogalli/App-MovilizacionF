@@ -1,6 +1,6 @@
 package com.example.Movilizacion.service
 
-import com.example.Movilizacion.model.UsarioModel
+import com.example.Movilizacion.model.UsuarioModel
 import com.example.Movilizacion.repository.UsuarioRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -12,19 +12,19 @@ class UsuarioService {
     @Autowired
     lateinit var usuarioRepository: UsuarioRepository
 
-    fun list(): List <UsarioModel>{
+    fun list(): List <UsuarioModel>{
         return usuarioRepository.findAll()
     }
 
-    fun getByid (idusuario: Long):UsarioModel?{
+    fun getByid (idusuario: Long):UsuarioModel?{
         return usuarioRepository.findByIdusuario(idusuario)
     }
 
-    fun getGender(gender:String?):List<UsarioModel>?{
-        return usuarioRepository.israelSanto(gender)
+    fun getGender(gender:String?):List<UsuarioModel>?{
+        return usuarioRepository.getListaUsuario(gender)
     }
 
-    fun save (usuarioModel: UsarioModel):UsarioModel{
+    fun save (usuarioModel: UsuarioModel):UsuarioModel{
         try {
             usuarioModel.nombre?.takeIf { it.trim().isNotEmpty() }
                 ?:throw Exception ("El nombre no puede estar vacio")
@@ -50,7 +50,7 @@ class UsuarioService {
     }
 
 
-    fun update (usuarioModel: UsarioModel):UsarioModel{
+    fun update (usuarioModel: UsuarioModel):UsuarioModel{
         try {
             usuarioModel.nombre?.takeIf { it.trim().isNotEmpty() }
                 ?:throw Exception ("El nombre no puede estar vacio")
@@ -81,7 +81,7 @@ class UsuarioService {
         return usuarioRepository.save(usuarioModel)
     }
 
-    fun updateUno(usuarioModel: UsarioModel):UsarioModel{
+    fun updateUno(usuarioModel: UsuarioModel):UsuarioModel{
         try {
             usuarioModel.nombre?.takeIf { it.trim().isNotEmpty() }
                 ?:throw Exception ("El nombre no puede estar vacio")
@@ -129,4 +129,45 @@ class UsuarioService {
             )
         }
     }
+
+    fun multiplicacion(coeficiente: Int, digito: Int): Int {
+        val response = coeficiente * digito
+        if (response >= 10)
+            return response - 9
+        return response
+    }
+
+    fun SumaValores(nui: String): Int {
+        var sum: Int = 0
+        for (i in 0..8) {
+            val coeficiente = if (i % 2 == 0) 2 else 1
+            sum += multiplicacion(coeficiente, Integer.parseInt(nui[i].toString()))
+        }
+        return sum
+    }
+
+    fun findDecenaSuperior(sum: Int): Int {
+
+        val division: Int = sum / 10
+        val decenaSuperior: Int = (division + 1) * 10
+        var response: Int = decenaSuperior - sum
+        if (response == 10)
+            response = 0
+
+        return response
+    }
+
+    fun validarCedula(cedula: String): Boolean {
+        val sum = SumaValores(cedula)
+        val lastDig = findDecenaSuperior(sum)
+
+        val lastDigCedString = cedula.last()
+        val lastDigCedInt = Integer.parseInt(lastDigCedString.toString())
+
+        if (lastDigCedInt == lastDig)
+            return true
+        return false
+
+    }
+
 }

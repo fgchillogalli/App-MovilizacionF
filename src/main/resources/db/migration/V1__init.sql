@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS conductor (
 
 );
 
-CREATE TABLE IF NOT EXISTS usuarios (
+    CREATE TABLE IF NOT EXISTS usuarios (
     idusuario SERIAL,
     nombre VARCHAR(100) NOT NULL,
     age INT,
