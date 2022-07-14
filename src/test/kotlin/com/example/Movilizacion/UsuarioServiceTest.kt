@@ -24,8 +24,8 @@ class UsuarioServiceTest {
 
     @Test
     fun ValidarSumaNui(){
-        val response=usuarioService.SumaValores("0301707030")
-        Assertions.assertEquals(20,response)
+        val response=usuarioService.SumaValores("0106438724")
+        Assertions.assertEquals(36,response)
     }
 
     @Test
